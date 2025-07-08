@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: java-todo-api
+    env: java
+    plan: free
+    buildCommand: ./mvnw clean install
+    startCommand: java -jar target/*.jar
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://todo-db:5432/tododb
+      - key: SPRING_DATASOURCE_USERNAME
+        value: shathwik
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: "#Adgj@1234$"
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
+databases:
+  - name: todo-db
+    plan: free
