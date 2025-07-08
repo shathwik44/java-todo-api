@@ -1,7 +1,6 @@
 services:
   - type: web
     name: java-todo-api
-    env: java
     plan: free
     buildCommand: ./mvnw clean install
     startCommand: java -jar target/*.jar
@@ -14,6 +13,7 @@ services:
         value: "#Adgj@1234$"
       - key: SPRING_JPA_HIBERNATE_DDL_AUTO
         value: update
+
 databases:
   - name: todo-db
     plan: free
