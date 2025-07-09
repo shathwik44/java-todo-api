@@ -1,11 +1,18 @@
-# Use a Java runtime base image
-FROM eclipse-temurin:17-jdk
+# Use Maven with JDK 17 to build the app
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 
-# Set working directory
 WORKDIR /app
 
-# Copy the jar (make sure it exists after build)
-COPY target/*.jar app.jar
+# Copy source code and build
+COPY . .
+RUN ./mvnw clean package -DskipTests
 
-# Run the app
+# Runtime image
+FROM eclipse-temurin:17-jdk
+
+WORKDIR /app
+
+# Copy the jar from the build stage
+COPY --from=build /app/target/*.jar app.jar
+
 CMD ["java", "-jar", "app.jar"]
